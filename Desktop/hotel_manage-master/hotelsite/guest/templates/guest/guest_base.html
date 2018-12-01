@@ -1,0 +1,82 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'Wallpaper_2560x1440.ico' %}">
+
+    <title>Hotel Guest</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+  
+    <!-- Custom styles for this template -->
+    <link href="http://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="{% static 'blog.css' %}" rel="stylesheet">
+   
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          <div class="col-4 pt-1">
+            <a class="text-muted" href="#"></a>
+          </div>
+          <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark" href="{% url 'guest_home' %}">Hotel</a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+          
+            <a class="btn btn-sm btn-outline-secondary" href="#">logout</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+          <a class="p-2 text-muted" href="{% url 'guest_myinfo' %}">내 정보</a>
+          <a class="p-2 text-muted" href="#">예약 확인</a>
+          <a class="p-2 text-muted" href="#">직원 검색</a>
+          <a class="p-2 text-muted" href="#">방 정보</a>
+          <a class="p-2 text-muted" href="#">호텔 소개</a>
+          <a class="p-2 text-muted" href="#">요청 및 문의</a>
+        </nav>
+      </div>
+      
+      {% block content %}
+      {% endblock %}
+
+
+
+    <footer class="blog-footer">
+      <p>Team.Normal 1 (A1)</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="{% static 'jquery.slim.min.js' %}"><\/script>')</script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'holder.min.js' %}"></script>
+
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
+</html>
