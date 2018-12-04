@@ -34,7 +34,7 @@
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
           
-            <a class="btn btn-sm btn-outline-secondary" href="#">logout</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'staff:logout' %}">logout</a>
           </div>
         </div>
       </header>
@@ -46,7 +46,7 @@
           <a class="p-2 text-muted" href="#">직원 검색</a>
           <a class="p-2 text-muted" href="#">방 정보</a>
           <a class="p-2 text-muted" href="#">호텔 소개</a>
-          <a class="p-2 text-muted" href="#">요청 및 문의</a>
+          <a class="p-2 text-muted" href="{% url 'req' %}">요청 및 문의</a>
         </nav>
       </div>
       
