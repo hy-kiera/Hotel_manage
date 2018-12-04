@@ -47,7 +47,7 @@ class Staff(models.Model):
     status = models.CharField(max_length=7, choices=STATUS_IN_CHOICES)
     phone_num = models.CharField(max_length=13) # 010-0000-0000
     # photo = models.ImageField()
-    dept = models.ForeignKey(Department, on_delete = models.CASCADE)
+    dept = models.ForeignKey('Department', on_delete = models.CASCADE)
     
 class Department(models.Model):
   
