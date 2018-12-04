@@ -3,7 +3,6 @@ from .models import Room, Request_post, Department
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
-from django.http import HttpResponse
 
 @login_required(login_url='login:sign_in')
 def staff_home(request):
@@ -30,15 +29,19 @@ def post_new(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Request_post, pk=pk)
-    if request.method == "POST":
-        if request.POST['dept'] != '':
-            dept = Department.objects.get(id=request.POST['dept'])
-            post.dept = dept
-            post.handle_or_not = 2
 
+    if request.method == "POST":
+        if request.POST['handle']=='0':
+            post.handle_or_not =3
+      
         else:
-            post.dept = None
-            post.handle_or_not = 1
+            if request.POST['dept'] != '':
+                dept = Department.objects.get(id=request.POST['dept'])
+                post.dept = dept
+                post.handle_or_not = 2
+            else:
+                post.dept = None
+                post.handle_or_not = 1
         post.save()
         return redirect('staff:guest_req')
     else:
