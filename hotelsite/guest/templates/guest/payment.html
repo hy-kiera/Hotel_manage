@@ -1,0 +1,323 @@
+{% extends 'guest/guest_base.html' %}
+{% load staticfiles %}
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Payment</title>
+
+    <!-- Custom styles for this template -->
+    <link href="{%static 'form-validation.css' %}" rel="stylesheet">
+
+  </head>
+  {% block content %}
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-8 order-md-1">
+          <h3 class="mb-3">Enter guest details </h3>
+          <form class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Valid first name is required.
+                </div>
+              </div>
+              <div>
+                <p></p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+              <div>
+                  <p></p>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 mb-3">
+                  <label for="Contact Info">Contact Info</label>
+                  <select class="custom-select d-block w-100" id="Contact Info" required>
+                    <option value="">Choose...</option>
+                    <option>Mobile</option>
+                    <option>Home</option>
+                  </select>
+                  <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    Please enter contact info
+                  </div>
+                </div>
+              
+              </div>
+
+              <div>
+                  <p></p>
+              </div>
+
+            
+            <div>
+                <p></p>
+            </div>
+
+            <div class="mb-3">
+              <label for="email">Email <span class="text-muted"></span></label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div>
+                <p></p>
+            </div>
+
+            <div class="mb-3">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+              <div class="invalid-feedback">
+                Please enter your shipping address.
+              </div>
+            </div>
+
+            <div>
+                <p></p>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5 mb-3">
+                <label for="country">Country</label>
+                <select class="custom-select d-block w-100" id="country" required>
+                  <option value="">Choose...</option>
+                  <option>Afghanistan</option>
+                  <option>Argentina</option>
+                  <option>Belarus</option>
+                  <option>Belgium</option>
+                  <option>Cambodia</option>
+                  <option>China</option>
+                  <option>Denmark</option>
+                  <option>Dominica</option>
+                  <option>Egypt</option>
+                  <option>Ethiopia</option>
+                  <option>Finland</option>
+                  <option>France</option>
+                  <option>Germany</option>
+                  <option>Ghana</option>
+                  <option>Haiti</option>
+                  <option>Hungary</option>
+                  <option>India</option>
+                  <option>Italy</option>
+                  <option>Jamaica</option>
+                  <option>Japan</option>
+                  <option>Kenya</option>
+                  <option>Kuwait</option>
+                  <option>Latvia</option>
+                  <option>Libya</option>
+                  <option>Malaysia</option>
+                  <option>Mexico</option>
+                  <option>Monaco</option>
+                  <option>Namibia</option>
+                  <option>Nepal</option>
+                  <option>Netherlands</option>
+                  <option>Norway</option>
+                  <option>Pakistan</option>
+                  <option>Philippines</option>
+                  <option>Poland</option>
+                  <option>Republic of Korea</option>
+                  <option>Romania</option>
+                  <option>Russia</option>
+                  <option>Senegal</option>
+                  <option>Singapore</option>
+                  <option>South Africa</option>
+                  <option>Switzerland</option>
+                  <option>Sweden</option>
+                  <option>Thailand</option>
+                  <option>Turkey</option>
+                  <option>Uganda</option>
+                  <option>United States</option>
+                  <option>Uruguay</option>
+                  <option>Zambia</option>
+                  <option>Zimbabwe</option>
+                  
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid country.
+                </div>
+              </div>
+            
+            </div>
+            <hr class="mb-4">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="same-address">
+              <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="save-info">
+              <label class="custom-control-label" for="save-info">Save this information for next time</label>
+            </div>
+            <hr class="mb-4">
+
+            <h3 class="mb-3">Enter credit card info</h3>
+
+            <div class="d-block my-3">
+              <div class="custom-control custom-radio">
+                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                <label class="custom-control-label" for="credit">Credit card</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                <label class="custom-control-label" for="debit">Debit card</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                <label class="custom-control-label" for="paypal">PayPal</label>
+              </div>
+              <div class="custom-control custom-radio">
+                  <input id="VISA" name="paymentMethod" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="VISA">VISA</label>
+              </div>
+            </div>
+
+            <div>
+                <p></p>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="cc-name">Name on card</label>
+                <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                <small class="text-muted">Full name as displayed on card</small>
+                <div class="invalid-feedback">
+                  Name on card is required
+                </div>
+              </div>
+
+              <div>
+                  <p></p>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="cc-number">Credit card number</label>
+                <input type="text" class="form-control1" id="cc-number" placeholder="" required >
+                -
+                <input type="text" class="form-control2" id="cc-number" placeholder="" required>
+                -
+                <input type="text" class="form-control3" id="cc-number" placeholder="" required>
+                -
+                <input type="text" class="form-control4" id="cc-number" placeholder="" required>
+
+                <div class="invalid-feedback">
+                  Credit card number is required
+                </div>
+              </div>
+
+              <div>
+                  <p></p>
+              </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 mb-3">
+                  <label for="cc-expiration">Expiry date</label>
+                  <select class="custom-select d-block w-100" id="cc-expiration" required>
+                    <option value="">Month</option>
+                    <option>01</option>
+                    <option>02</option>
+                    <option>03</option>
+                    <option>04</option>
+                    <option>05</option>
+                    <option>06</option>
+                    <option>07</option>
+                    <option>08</option>
+                    <option>09</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                  </select>
+
+                  <select class="custom-select d-block w-100" id="cc-expiration" required>
+                    <option value="">Year</option>
+                    <option>2028</option>
+                    <option>2027</option>
+                    <option>2026</option>
+                    <option>2025</option>
+                    <option>2024</option>
+                    <option>2023</option>
+                    <option>2022</option>
+                    <option>2021</option>
+                    <option>2020</option>
+                    <option>2019</option>
+                    <option>2018</option>
+
+                  </select>
+
+                  <div class="invalid-feedback">
+                      Please enter expiry date
+                    </div>
+                </div>
+              
+              </div>
+
+              <div>
+                  <p></p>
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label for="cc-cvv">CVV</label>
+                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                <div class="invalid-feedback">
+                  Security code required
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" >Continue to checkout</button>   
+          </form>
+        </div>
+      </div>
+      {% endblock %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="{%static 'jquery-slim.min.js' %}"><\/script>')</script>
+    <script src="{%static 'popper.min.js' %}"></script>
+    <script src="{%static 'bootstrap.min.js' %}"></script>
+    <script src="{%static 'holder.min.js' %}"></script>
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function() {
+        'use strict';
+
+        window.addEventListener('load', function() {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+    </script>
+  </body>
+</html>

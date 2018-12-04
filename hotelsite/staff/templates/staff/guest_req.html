@@ -1,0 +1,18 @@
+{% extends 'staff/staff_base.html' %} 
+{% load staticfiles %} 
+
+{% block content %} 
+<a href = "{% url 'staff:post_new' %}" class="btn btn-secondary">요청접수</a>
+<div class="row">
+    <div class="col-3">고객</div>
+    <div class="col-6">요청사항</div>
+    <div class="col-3">처리 여부</div>
+</div>
+{% for post in posts %} 
+<div class="row"> 
+    <div class="col-3">{{post.author}}</div>
+    <a href = "{% url 'staff:post_detail' pk=post.pk %}" class="col-6">{{post.title}}</a>
+    <div class="col-3">{{post.get_handle_or_not_display}}</div>
+</div>
+{% endfor %} 
+{% endblock %}  
