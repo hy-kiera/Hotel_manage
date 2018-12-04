@@ -1,0 +1,32 @@
+{% extends 'staff/staff_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="post">
+    <div class="row">
+        <div class="col-6">{{ post.created_date }}</div>
+        <div class="col-3">{{ post.author }}</div><!--고객정보페이지로 이동-->
+        <div class="col-3">
+            {% if post.room_num == None %}
+            비투숙고객
+            {% else %}
+            {{ post.room_num }}
+            {% endif %}
+            
+        </div><!--예약정보를 통해 고객이 묵는 방 번호 추출, 묵지 않는 고객의 경우(예약고객 혹은 문의 고객) 비투숙고객으로 표시-->
+    </div>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.text|linebreaksbr }}</p>
+    <form method="POST" class="post-form">{% csrf_token %}
+        <div class = "row">
+            <div class ="col-8">부서 : {{ form.dept }}<button type="submit" >부서배정</button></div>
+        </div>
+    </form>
+    <!--부서를 배정하면 부서에서 바로 업무 가능한 직원 목록이 뜨게 수정 필요-->   
+    <form method="GET" name="handle" value="3">
+        <button value="3"  class="btn btn-secondary">처리완료</button>
+    </form>
+</div>
+
+
+{% endblock %}
