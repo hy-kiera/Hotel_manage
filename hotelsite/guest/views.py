@@ -17,6 +17,10 @@ def guest_payment(request):
     return render(request, 'guest/payment.html')
 
 @login_required(login_url='login:sign_in')
+def guest_room(request):
+    return render(request, 'guest/guest_room.html')
+
+@login_required(login_url='login:sign_in')
 def req(request):
     posts = Request_post.objects.order_by('handle_or_not') 
     return render(request, 'guest/req.html', {'posts': posts})
