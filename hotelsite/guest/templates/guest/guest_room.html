@@ -1,0 +1,174 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'Wallpaper_2560x1440.jpg' %}">
+
+    <title>Hotel Guest</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="{% static 'blog.css' %}" rel="stylesheet">
+    <style>
+      .blog-footer{text-align: center; width:1280px; margin: auto;}
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          <div class="col-4 pt-1">
+            <a class="text-muted" href="#"></a>
+          </div>
+          <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark" href="#">Hotel</a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+
+            <a class="btn btn-sm btn-outline-secondary" href="#">logout</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+          <a class="p-2 text-muted" href="#">내 정보</a>
+          <a class="p-2 text-muted" href="#">예약 확인</a>
+          <a class="p-2 text-muted" href="#">직원 검색</a>
+          <a class="p-2 text-muted" href="#">방 정보</a>
+          <a class="p-2 text-muted" href="#">호텔 소개</a>
+          <a class="p-2 text-muted" href="#">요청 및 문의</a>
+        </nav>
+      </div>
+
+      {% block content %}
+      </p>
+      <link rel="icon" src="{% static 'Wallpaper_2560x1440.ico' %}">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" src="{% static 'Standard Single Room.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">Standard Single Room</p>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <small class="text-muted">1박 당 ₩ 101,162 </small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary">예약하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" src="{% static 'Standard Twin Room.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">Standard Twin Room</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <small class="text-muted">1박 당 ₩ 115,856 </small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary">예약하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" src="{% static 'Superior Double Room.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">Superior Double Room</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <small class="text-muted">1박 당 ₩ 125,725</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary">예약하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" src="{% static 'Standard Triple Room.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">Standard Triple Room</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <small class="text-muted">1박 당 ₩ 149,416</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary">예약하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" src="{% static 'Superior Triple Room.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">Superior Triple Room</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <small class="text-muted">1박 당 ₩ 160,998</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary">예약하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" src="{% static 'Standard Quadruple Room.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">Standard Quadruple Room</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <small class="text-muted">1박 당 ₩ 207,338</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary">예약하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <img class="card-img-top" src="{% static 'hotelview.png' %}" alt="Card image cap">
+      {% endblock %}
+
+
+    <footer class="blog-footer">
+      <p>Team.Normal 1 (A1)</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="{% static 'jquery.slim.min.js' %}"><\/script>')</script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'holder.min.js' %}"></script>
+
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
+</html>

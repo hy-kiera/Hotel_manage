@@ -15,7 +15,7 @@ def guest_myinfo(request):
 @login_required(login_url='login:sign_in')
 def guest_payment(request):
     return render(request, 'guest/payment.html')
-
+  
 @login_required(login_url='login:sign_in')
 def guest_room(request):
     return render(request, 'guest/guest_room.html')
