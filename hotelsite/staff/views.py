@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Room, Request_post, Department
+from .models import Room, Staff, Request_post, Department
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
+from django.db.models import F
 
 @login_required(login_url='login:sign_in')
 def staff_home(request):
@@ -48,3 +49,9 @@ def post_detail(request, pk):
     else:
         form = PostForm(instance=post)
         return render(request, 'staff/req_detail.html', {'post':post, 'form':form})
+
+@login_required(login_url='login:sign_in')
+def myinfo(request):
+    staff = Staff.objects.filter(pk=request.user)
+    print(staff.query)
+    return render(request, 'staff/myinfo.html', {'staff':staff})
