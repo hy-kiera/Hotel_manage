@@ -21,6 +21,7 @@ class Room(models.Model):
     
     def __str__(self):
         return str(self.room_num)+'호'
+
 class Staff(models.Model):
 
     SEX_IN_CHOICES=(
@@ -39,16 +40,19 @@ class Staff(models.Model):
     # staff_id = models.CharField(max_length=10, primary_key='True')
     # name_first = models.CharField(max_length=2)
     # name_last = models.CharField(max_length=3)
-    work_start_time = models.DateTimeField(auto_now='True') # 갱신
-    work_end_time = models.DateTimeField(auto_now='True')
-    work_weekday = models.CharField(max_length=3)    # 월요일
-    date_of_birth = models.CharField(max_length=10)  # 0000.00.00
+    work_start_time = models.DateTimeField(blank=True, null=True) # 갱신
+    work_end_time = models.DateTimeField(blank=True, null=True)
+    date_of_birth = models.DateField()  # 0000.00.00
     sex = models.CharField(max_length=6, choices=SEX_IN_CHOICES)
     status = models.CharField(max_length=7, choices=STATUS_IN_CHOICES)
     phone_num = models.CharField(max_length=13) # 010-0000-0000
     # photo = models.ImageField()
     dept = models.ForeignKey('Department', on_delete = models.CASCADE)
-    
+
+    def __str__(self):
+        return str(self.user)
+
+
 class Department(models.Model):
   
     DEPT_IN_CHOICES=(
@@ -61,7 +65,7 @@ class Department(models.Model):
         ('FINANCE', 'finance'),
     )
     
-    name = models.CharField(max_length = 30, choices=DEPT_IN_CHOICES) 
+    name = models.CharField(max_length = 30, choices=DEPT_IN_CHOICES, unique=True) 
     role = models.TextField() 
     tel_num = models.CharField(max_length = 20) 
 
