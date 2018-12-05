@@ -37,8 +37,8 @@ class Staff(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key='True', default="")
     # staff_id = models.CharField(max_length=10, primary_key='True')
-    # name_first = models.CharField(max_length=2)
-    # name_last = models.CharField(max_length=3)
+    name_first = models.CharField(max_length=2)
+    name_last = models.CharField(max_length=3)
     work_start_time = models.DateTimeField(auto_now='True') # 갱신
     work_end_time = models.DateTimeField(auto_now='True')
     work_weekday = models.CharField(max_length=3)    # 월요일
@@ -48,6 +48,9 @@ class Staff(models.Model):
     phone_num = models.CharField(max_length=13) # 010-0000-0000
     # photo = models.ImageField()
     dept = models.ForeignKey('Department', on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
     
 class Department(models.Model):
   

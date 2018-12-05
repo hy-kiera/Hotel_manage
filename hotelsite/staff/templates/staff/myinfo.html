@@ -1,0 +1,21 @@
+{% extends 'staff/staff_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    
+    <div class="row">
+        <div class="row">
+            <div class="col">
+                <p>성</p>{{staff.name_last}}</div>
+            <div class="col">
+                <p>이름</p>{{staff.name_first}}</div>
+        </div>
+        <div class="col">{{staff.work_start_time}}</div>
+        <div class="col">{{staff.work_end_time}}</div>
+        <div class="col">{{staff.work_weekday}}</div>
+        <div class="col">{{staff.status}}</div>
+        <div class="col">{{staff.phone_num}}</div>
+        <div class="col">{{staff.dept}}</div>
+    </div>
+    
+{% endblock %}
