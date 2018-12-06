@@ -3,11 +3,30 @@ from .models import Room, Staff, Request_post, Department
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 from django.db.models import F
+import json 
+from django.http import JsonResponse
 
 @login_required(login_url='login:sign_in')
 def staff_home(request):
+    print(request.GET.get('floor'))
     rooms = Room.objects.order_by('room_num')
     return render(request, 'staff/staff_home.html', {'rooms':rooms})
+
+@login_required(login_url='login:sign_in')
+def room(request):
+    """ request.metho == POST """
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        # print('POST select:', body['select'])
+        floor = body['select']
+        rooms = Room.objects.filter(room_floor=floor).order_by('room_num').values()
+        rooms = list(rooms)
+        return JsonResponse({
+            'rooms': rooms
+        })
+    else:
+        rooms = Room.objects.filter(room_floor=1).order_by('room_num')
+        return render(request, 'staff/room.html', {'rooms':rooms})
 
 @login_required(login_url='login:sign_in')
 def guest_req(request): 

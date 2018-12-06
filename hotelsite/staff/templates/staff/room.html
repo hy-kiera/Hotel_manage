@@ -1,0 +1,115 @@
+<meta charset="UTF-8" />
+{% extends 'staff/staff_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="{% static 'jquery.min.js' %}"><\/script>')</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    window.onload =() => {
+        // EventListener로 select onchange 이벤트 받기
+        const list = document.getElementById('FloorSelect')
+        list.addEventListener('change', (e) => {
+            const selected = list.selectedOptions[0].value
+            const csrfToken = getCookie('csrftoken')
+            console.log(csrfToken)
+            console.log(selected)
+            // staff:room으로 select값 post로 넘기기
+            axios.post("{% url 'staff:room' %}", {
+                select: selected
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                }
+            })
+            .then((data) => {
+                console.log(data)
+                // id = room인 테이블에 값 넣어주기
+                const table = document.getElementById('room')
+                table.getElementsByTagName('tbody')[0].innerHTML = ''
+                for(const item of data.data.rooms) {
+                    const tr = document.createElement('tr')
+                    tr.innerHTML = `<td>${item.room_num}</td><td>${item.room_type}</td><td>${item.status_clean}</td><td>NULL</td>`  
+                    table.getElementsByTagName('tbody')[0].appendChild(tr)  
+                }
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        })    
+    }
+</script>
+
+
+<div style="border:1px #dedede; width:10; height:10;  overflow:auto;" >
+    <table cellspacing="0" class="case03" style="width:85%; margin: 10px 40px;" id="table" name="table">
+        <colgroup>
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+        </colgroup>
+    </table>         
+</div>
+
+
+<div class="row">
+    <div class="col-2 mb-3">
+        <label for="checkin">층수선택</label><br>
+        <div class="field-icon-wrap">
+            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                <select name="floor" class="floor" id="FloorSelect">
+                    <option id="1" value="1" selected="true">1</option>
+                    <option id="2" value="2">2</option>
+                    <option id="3" value="3">3</option>
+                    <option id="4" value="4">4</option>
+                    <!--층수는 나중에 더 추가하면 됩니다.-->
+                </select>
+            <div class="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<table id="room" class="table">
+        <thead>
+            <tr>
+                <th scope="col">호실</th>
+                <th scope="col">타입</th>
+                <th scope="col">청소상태</th>
+                <th scope="col">예약상태</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+                <tr>
+                    <td>{{ room.room_num }}</td>
+                    <td>{{ room.room_type }}</td>
+                    <td>{{ room.status_clean }}</td>
+                    <td>null</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+</table>
+
+{% endblock %}
