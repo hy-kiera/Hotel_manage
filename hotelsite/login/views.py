@@ -15,16 +15,16 @@ def sign_in(request):
         if user is not None:
             login(request, user)
             if user.is_staff == True:
-                return redirect('../')
+                return redirect('staff:staff_home')
 
             else:
                 return redirect('guest:guest_home')
         else:
             return render(request, 'sign_in/log_in.html')
     
-    elif request.user is not None:
+    elif request.user.is_active == True:
         if request.user.is_staff == True:
-            return redirect('../')
+            return redirect('staff:staff_home')
 
         else:
             return redirect('guest:guest_home')

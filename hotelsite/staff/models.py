@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from login.models import Guest
 
 class Room(models.Model): 
  
@@ -85,7 +86,8 @@ class Request_post(models.Model):
     )
 
     #요청번호는 자체 제공하는 pk이용 
-    author =  models.ForeignKey('auth.User', on_delete=models.CASCADE) 
+    author =  models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    guest = models.ForeignKey('login.Guest', on_delete=models.CASCADE)
     title = models.TextField() 
     text = models.TextField() 
     created_date = models.DateTimeField(default=timezone.now) 

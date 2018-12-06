@@ -5,6 +5,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .forms import PostForm
 from django.db.models import F
 
+
 @staff_member_required
 def staff_home(request):
     rooms = Room.objects.order_by('room_num')
@@ -21,6 +22,7 @@ def post_new(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+            post.author=request.user
             if post.dept != None:
                 post.handle_or_not= 2
             post.save()
