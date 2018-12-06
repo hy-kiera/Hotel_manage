@@ -21,6 +21,15 @@ def sign_in(request):
                 return redirect('guest:guest_home')
         else:
             return render(request, 'sign_in/log_in.html')
+    
+    elif request.user is not None:
+        if request.user.is_staff == True:
+            return redirect('../')
+
+        else:
+            return redirect('guest:guest_home')
+
+
     else:
         form = LoginForm()
         return render(request, 'sign_in/log_in.html', {'form':form})
