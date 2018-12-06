@@ -7,7 +7,7 @@
 - Python3
 - MariaDB v10.2.19
   - PyMySQL v0.9.2
-- Django
+- Django v2.1.3
 
 ## Members
 |name|work|
