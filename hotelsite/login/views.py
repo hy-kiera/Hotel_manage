@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import login, logout, authenticate
-from .forms import LoginForm
+from .forms import LoginForm, UserForm, GuestForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
+from .models import Guest
 
 def sign_in(request):
     if request.method == "POST":
@@ -13,7 +14,11 @@ def sign_in(request):
 
         if user is not None:
             login(request, user)
-            return redirect('../')
+            if user.is_staff == True:
+                return redirect('../')
+
+            else:
+                return redirect('guest:guest_home')
         else:
             return render(request, 'sign_in/log_in.html')
     else:
@@ -24,3 +29,23 @@ def sign_in(request):
 def log_out(request):
     logout(request)
     return redirect('login:sign_in')
+
+
+def sign_up(request):
+    if request.method == "POST":
+        form1 = UserForm(request.POST)
+        form2 = GuestForm(request.POST)        
+    
+        if form1.is_valid():
+            guest=form2.save(commit=False)
+            guest.guest_id=request.POST['username']
+            guest.save()
+            new_user = User.objects.create_user(**form1.cleaned_data)
+            return redirect('login:sign_in')
+        else:
+            return HttpResponse('사용자명이 이미 존재합니다.')
+
+    else:
+        form1 = UserForm()
+        form2 = GuestForm()
+        return render(request, 'sign_in/sign_up.html', {'form1':form1, 'form2':form2})

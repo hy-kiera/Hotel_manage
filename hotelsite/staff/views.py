@@ -1,19 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Room, Request_post, Department
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from .forms import PostForm
 
-@login_required(login_url='login:sign_in')
+@staff_member_required
 def staff_home(request):
     rooms = Room.objects.order_by('room_num')
     return render(request, 'staff/staff_home.html', {'rooms':rooms})
 
-@login_required(login_url='login:sign_in')
+@staff_member_required
 def guest_req(request): 
     posts = Request_post.objects.order_by('handle_or_not') 
     return render(request, 'staff/guest_req.html', {'posts': posts})
 
-@login_required(login_url='login:sign_in')
+@staff_member_required
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -27,7 +28,7 @@ def post_new(request):
         form = PostForm()
     return render(request, 'staff/req_new.html', {'form':form})
 
-@login_required(login_url='login:sign_in')
+@staff_member_required
 def post_detail(request, pk):
     post = get_object_or_404(Request_post, pk=pk)
 

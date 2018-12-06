@@ -1,8 +1,93 @@
+{% load staticfiles %}
+<head>
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <title>회원가입</title>
+    <link rel="icon" href="{% static 'Wallpaper_2560x1440.ico' %}">
+
+</head>
+
 <html>
+    
     <h2>회원가입</h2>
-    <form method="post" action="">
+    <form method="POST" action="" class="sign-up-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class = "row">
+            <div class="col-2">
+                {{form1.username.label}}
+            </div>
+            <div class="col-3">
+                {{form1.username}}
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class="col-2">
+               {{form1.password.label}}
+            </div>
+                <div class="col-3">
+                {{form1.password}}
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-2">
+                {{form2.e_mail.label}}
+            </div>
+            <div class="col-4">
+                {{form2.e_mail}}
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-2">
+                {{form2.first_name.label}}
+            </div>
+            <div class="col-4">
+                {{form2.first_name}}
+            </div>
+        </div>
+        <!--이렇게 노가다를 할거면 라벨은 왜 붙였나 싶기도...ㅎㅎ-->
+        <div class = "row">
+            <div class="col-2">
+                {{form2.last_name.label}}
+            </div>
+            <div class="col-4">
+                {{form2.last_name}}
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-2">
+                {{form2.date_of_birth.label}}
+            </div>
+            <div class="col-4">
+                {{form2.date_of_birth}}
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-2">
+                {{form2.sex.label}}
+            </div>
+            <div class="col-4">
+                {{form2.sex}}
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-2">
+                {{form2.phone_num.label}}
+            </div>
+            <div class="col-4">
+                {{form2.phone_num}}
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-2">
+                {{form2.language.label}}
+            </div>
+            <div class="col-4">
+                {{form2.language}}
+            </div>
+        </div>
+        
+       
+
         <input type="submit" value="회원가입" />
     </form>
         
