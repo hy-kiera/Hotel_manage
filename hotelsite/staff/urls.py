@@ -9,5 +9,5 @@ urlpatterns = [
     path('guest_req', views.guest_req, name='guest_req'),
     path('guest_req/new', views.post_new, name = 'post_new'),
     path('guest_req/<pk>', views.post_detail, name='post_detail'),
-
+    path('myinfo', views.myinfo, name='myinfo'),
 ]
