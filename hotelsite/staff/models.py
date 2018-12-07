@@ -9,9 +9,10 @@ class Room(models.Model):
         ('UNCLEAN', 'Unclean')
     )
     room_num = models.DecimalField(decimal_places=0, max_digits=4, primary_key='True', default = 0) 
-    room_type = models.ForeignKey('Type', max_length=10, default='SINGLE', on_delete = models.CASCADE) #Suite 
+    room_type = models.ForeignKey('Type', on_delete = models.CASCADE) #Suite
     status_clean = models.CharField(max_length=10, choices=STATUS_CLEAN_IN_CHOICES, default='CLEAN')  # 0 : 사용중, 1 : 사용가능, 3 : 청소 필요, 4 : 예약
-    
+    room_floor = models.DecimalField(decimal_places=0, max_digits=1, default='1')
+
     def __str__(self):
         return str(self.room_num)+'호'
 
@@ -25,6 +26,18 @@ class Type(models.Model):
 #    capacity = models.DecimalField(decimal_places=0, max_digits=1, default = 0)
     nights = models.DecimalField(decimal_places=0, max_digits=10, default=0)
     cost = models.DecimalField(decimal_places=0, max_digits=10000000, default=0)
+
+class Reservation(models.Model):
+    # created = models.DateTimeField(auto_now_add=True)
+    reserve_num = models.DecimalField(decimal_places=0, max_digits=5, default=0, primary_key='True')
+    room_num = models.ForeignKey('Room', on_delete=models.CASCADE, blank = True, null = True)
+    guest_id = models.CharField(max_length=10, default='')
+    cost = models.CharField(max_length=10000000, default=0)
+    date_start = models.CharField(max_length=20, default='0000-00-00')
+    date_end = models.CharField(max_length=20, default='0000-00-00')
+    book_time = models.DateTimeField(default=timezone.now)
+    companion = models.DecimalField(decimal_places=0, max_digits=1, default=0)
+    room_floor = models.DecimalField(decimal_places=0, max_digits=1, default='1')
 
         
 class Staff(models.Model):
@@ -42,7 +55,7 @@ class Staff(models.Model):
     )
                     
     user = models.OneToOneField(User, on_delete=models.CASCADE, default="")
-    staff_id = models.DecimalField(decimal_places=0, max_digits=10, default=0, primary_key='True')
+    staff_id = models.DecimalField(decimal_places=0,primary_key='True', max_digits=10, default=0)
     name_first = models.CharField(max_length=2, default="")
     name_last = models.CharField(max_length=3, default="")
     work_start_time = models.CharField(max_length=20, default='0000-00-00') # 갱신
@@ -53,7 +66,7 @@ class Staff(models.Model):
     status = models.CharField(max_length=7, choices=STATUS_IN_CHOICES)
     phone_num = models.CharField(max_length=13) # 010-0000-0000
      # photo = models.ImageField()
-    dept = models.ForeignKey('Department', max_length = 30, on_delete = models.CASCADE)
+    dept = models.ForeignKey('Department', on_delete = models.CASCADE, default="")
 
     
 class Department(models.Model):
@@ -68,7 +81,7 @@ class Department(models.Model):
         ('FINANCE', 'finance'),
     )
     
-    name = models.CharField(max_length = 30, choices=DEPT_IN_CHOICES) 
+    name = models.CharField(max_length = 30, choices=DEPT_IN_CHOICES)
     role = models.TextField() 
     tel_num = models.CharField(max_length = 20) 
 
@@ -100,16 +113,3 @@ class Request_post(models.Model):
 
     def __str__(self): 
         return self.title 
-
-
-class Reservation(models.Model):
-    # created = models.DateTimeField(auto_now_add=True)
-    reserve_num = models.DecimalField(decimal_places=0, max_digits=5, default=0, primary_key='True')
-    room_num = models.ForeignKey('Room', on_delete=models.CASCADE, blank = True, null = True)
-    guest_id = models.CharField(max_length=10, default='')
-    cost = models.CharField(max_length=10000000, default=0)
-    date_start = models.CharField(max_length=20, default='0000-00-00')
-    date_end = models.CharField(max_length=20, default='0000-00-00')
-    book_time = models.DateTimeField(default=timezone.now)
-    companion = models.DecimalField(decimal_places=0, max_digits=1, default=0)
-
