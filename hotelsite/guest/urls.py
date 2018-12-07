@@ -12,6 +12,7 @@ urlpatterns = [
     path('req/req_new/', views.post_new, name='post_new'),
     path('introduce/', views.introduce, name='introduce'),
     path('myreserv/', views.myreserv, name='myreserv'),
+    path('req/req_edit/<pk>', views.post_edit, name='post_edit'),
 ]
 
 

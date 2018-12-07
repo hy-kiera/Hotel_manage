@@ -10,7 +10,7 @@
 </div>
 {% for post in posts %} 
 <div class="row"> 
-    <div class="col-3">{{post.author}}</div>
+    <div class="col-3">{{post.guest}}</div>
     <a href = "{% url 'staff:post_detail' pk=post.pk %}" class="col-6">{{post.title}}</a>
     <div class="col-3">{{post.get_handle_or_not_display}}</div>
 </div>

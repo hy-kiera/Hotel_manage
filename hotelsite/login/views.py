@@ -47,6 +47,7 @@ def sign_up(request):
     
         if form1.is_valid():
             guest=form2.save(commit=False)
+            guest.date_of_birth=request.POST["date_of_birth"]
             guest.guest_id=request.POST['username']
             guest.save()
             new_user = User.objects.create_user(**form1.cleaned_data)

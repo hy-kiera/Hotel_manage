@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from .models import Room, Staff, Request_post, Department
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -53,8 +53,25 @@ def post_detail(request, pk):
         form = PostForm(instance=post)
         return render(request, 'staff/req_detail.html', {'post':post, 'form':form})
 
-@login_required(login_url='login:sign_in')
+@staff_member_required
 def myinfo(request):
     staff = Staff.objects.filter(pk=request.user)
     print(staff.query)
     return render(request, 'staff/myinfo.html', {'staff':staff})
+
+@staff_member_required
+def post_edit(request, pk):
+    post = get_object_or_404(Request_post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', pk=post.pk)
+        else:
+            return render(request, 'guest/req_new.html', {'form': form})
+    else:
+        if request.user != post.author:
+            return HttpResponse("권한이 없습니다.")
+        else:    
+            form = PostForm(instance=post)
+            return render(request, 'guest/req_new.html', {'form': form})

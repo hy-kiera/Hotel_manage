@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from staff.models import Request_post, Department, Room
 from login.models import Guest
@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 
 def guest_home(request):
-    if request.user.is_active == True :
+    if request.user.is_staff==True:
+        return redirect('staff:staff_home')
+    elif request.user.is_active == True :
         return render(request, 'guest/guest_home.html')
     else:
         return render (request, 'guest/guest_home_login.html')
@@ -60,3 +62,20 @@ def introduce(request):
 @login_required(login_url='login:sign_in')
 def myreserv(request):
     return render(request, 'guest/myreserv.html')
+
+@login_required(login_url='login:sign_in')
+def post_edit(request, pk):
+    post = get_object_or_404(Request_post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', pk=post.pk)
+        else:
+            return render(request, 'guest/req_new.html', {'form': form})
+    else:
+        if request.user != post.author:
+            return HttpResponse("권한이 없습니다.")
+        else:    
+            form = PostForm(instance=post)
+            return render(request, 'guest/req_new.html', {'form': form})
