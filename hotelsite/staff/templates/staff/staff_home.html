@@ -1,0 +1,165 @@
+<meta charset="UTF-8" />    <!--한글깨짐을 방지.-->
+{% extends 'staff/staff_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div style="border:1px #dedede; width:10; height:10;  overflow:auto;" >
+    <table cellspacing="0" class="case03" style="width:85%; margin: 10px 40px;" id="table" name="table">
+        <colgroup>
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+        </colgroup>
+    </table>         
+</div>
+
+<script language="JavaScript">
+
+$(document).ready(function(){
+    floor_val = $('select.floor').attr('data-type')
+    $('select.floor option[value=' + floor_val + ']').attr('selected', 'selected');
+});
+
+// function button_click()
+// {   
+
+//     //아래 템플릿에서 파이썬으로 디비 정보를 받아왔음. 이제 jquery이용해서 그 값들을 자바스크립트로 받아와서 처리한다.
+//     var selectfloor = document.getElementById("floor").options[document.getElementById("floor").selectedIndex].value;
+
+//     //일단 디비 정보를 룸번호,룸타입,룸청소상태로 나눠서 제이쿼리로 받는다.
+//     var roomnumlen = $("input[name = 'roomnum']").length;
+//     var roomnum = new Array(roomnumlen);//룸 번호 불러올 배열
+//     for(var i=0; i<roomnumlen; i++){//룸 번호 저장하기
+//         roomnum[i] = $("input[name = 'roomnum']")[i].value;
+//     }
+
+//     var roomtypelen = $("input[name = 'roomtype']").length;
+//     var roomtype = new Array(roomtypelen);//룸 타입 불러올 배열
+//     for(var i=0; i<roomtypelen; i++){//룸 타입만 저장하기
+//         roomtype[i] = $("input[name = 'roomtype']")[i].value;
+//     }
+
+//     var roomcleanlen = $("input[name = 'roomclean']").length;
+//     var roomclean = new Array(roomcleanlen);//룸 청소상태 불러올 배열
+//     for(var i=0; i<roomcleanlen; i++){//룸 청소상태만 저장하기
+//         roomclean[i] = $("input[name = 'roomclean']")[i].value;
+//     }
+
+//     var floor = new Array(roomnumlen);//층을 담는 배열
+//     for(var i = 0; i<roomnumlen; i++){
+//         floor[i] = Math.floor(roomnum[i]/100);//소수점 제거하고 층만 배열에 저장
+//     }
+
+
+//     var row_1 = 0;
+//     var row_2 = 0;
+//     var row_3 = 0;
+//     var row_4 = 0;
+//     var num = new Array();
+//     var type = new Array();
+//     var clean = new Array();
+    
+//     var tbl = document.getElementById("table");
+//     var body = document.body;
+//     //var tbl = document.createElement('table');
+//     // tbl.style.width = '1000px';
+//     //tbl.style.height = '200px';
+    
+//     tbl.style.border = '1px solid black';
+
+//     var guboon = 0;
+//     var a = 0;
+//     var b = 0;
+//     var c = 0;
+//     var d = 0;
+
+//     for(var i=0; i<roomnumlen; i++){
+//         if(selectfloor == "01" && floor[i] == 1){
+//             //document.write(roomnum[i],"\n",roomtype[i],"\n",roomclean[i],"<br>");
+//             //tableCreate(roomnum[i], roomtype[i], roomclean[i]);
+//             guboon = 1;
+//             row_1++;
+//             num[a] = roomnum[i];
+//             type[a] = roomtype[i];
+//             clean[a] = roomclean[i];
+//             a++;
+//         }else if(selectfloor == "02" && floor[i] == 2){
+//             //document.write(roomnum[i],"\n",roomtype[i],"\n",roomclean[i],"<br>");
+//             //tableCreate(roomnum[i], roomtype[i], roomclean[i]);
+//             guboon = 2;
+//             row_2++;
+//             num[b] = roomnum[i];
+//             type[b] = roomtype[i];
+//             clean[b] = roomclean[i];
+//             b++;
+//         }else if(selectfloor == "03" && floor[i] == 3){
+//             //document.write(roomnum[i],"\n",roomtype[i],"\n",roomclean[i],"<br>");
+//             //tableCreate(roomnum[i], roomtype[i], roomclean[i]);
+//             guboon = 3;
+//             row_3++;
+//             num[c] = roomnum[i];
+//             type[c] = roomtype[i];
+//             clean[c] = roomclean[i];
+//             c++;
+//         }else if(selectfloor == "04" && floor[i] == 4){
+//             //document.write(roomnum[i],"\n",roomtype[i],"\n",roomclean[i],"<br>");
+//             //tableCreate(roomnum[i], roomtype[i], roomclean[i]);
+//             guboon = 4;
+//             row_4++;
+//             num[d] = roomnum[i];
+//             type[d] = roomtype[i];
+//             clean[d] = roomclean[i];
+//             d++;
+//         }
+//         //층수 더 늘어나면 조건문이랑 아래 옵션에서 새로 추가하면 됩니다.
+
+//     }
+// }
+
+</script><!--버튼이벤트 테스트-->
+<form action="{% url 'staff:staff_home' %}">
+    <div class="row">
+        <div class="col-2 mb-3">
+            <label for="checkin">층수선택</label><br>
+            <div class="field-icon-wrap">
+                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                    <select name="floor" class="floor" data-type="1">
+                        <option value="1" selected="selected">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <!--층수는 나중에 더 추가하면 됩니다.-->
+                    </select>
+                <div class="">
+                </div>
+            </div>
+        </div>
+        <!-- <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">호실</th>
+                        <th scope="col">타입</th>
+                        <th scope="col">청소상태</th>
+                        <th scope="col">예약상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td><script>$("input[name = 'roomnum']").val()</script></td>
+                    <td><script>$("input[name = 'roomtype']").val()</script></td>
+                    <td><script>$("input[name = 'roomclean']").val()</script></td>
+                    <td>null</td>
+                </tbody>
+        </table> -->
+    </div>
+</form>
+
+<!--이 디비 정보는 히든이라 실제 페이지에서는 안보입니다.-->
+{% for room in rooms %}
+    <input class="col-3" type="hidden" name="roomnum" value = {{room.room_num}}>
+    <input class="col-3" type="hidden" name="roomtype" value = {{room.room_type}}>
+    <input class="col-3" type="hidden" name="roomclean" value = {{room.status_clean}}>
+{% endfor %}
+    
+{% endblock %}
