@@ -9,7 +9,7 @@
     
     
 <div class="container emp-profile">
-    <form method="post">
+    <form method="POST">
         </br>
         <div class="row">
             <div class="col-md-4">
@@ -24,12 +24,10 @@
                 <div class="profile-head">
                     </br>
                     <h3>
-                        name example
                         {{ staff.name_last }}
                         {{ staff.name_first }}
                     </h3>
                     <h6>
-                        dept example
                         {{ staff.dept }}
                     </h6>
                     </br>
@@ -52,7 +50,7 @@
                                 <label>User ID</label>
                             </div>
                             <div class="col-md-6">
-                                <p>id example{{ staff.user.username }}</p>
+                                <p>{{ user.get_username }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -60,7 +58,7 @@
                                 <label>Status</label>
                             </div>
                             <div class="col-md-6">
-                                <p>status example{{ staff.status }}</p>
+                                <p>{{ staff.status }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -68,7 +66,7 @@
                                 <label>Phone Number</label>
                             </div>
                             <div class="col-md-6">
-                                <p>010-0000-0000{{ staff.phone_num }}</p>
+                                <p>{{ staff.phone_num }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -76,7 +74,7 @@
                                 <label>Work Start Time</label>
                             </div>
                             <div class="col-md-6">
-                                <p>00:00{{ staff.work_start_time }}</p>
+                                <p>{{ staff.work_start_time }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -84,7 +82,7 @@
                                 <label>Work End Time</label>
                             </div>
                             <div class="col-md-6">
-                                <p>00:00{{ staff.wokr_end_time }}</p>
+                                <p>{{ staff.work_end_time }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -92,7 +90,7 @@
                                 <label>Work Weekday</label>
                             </div>
                             <div class="col-md-6">
-                                <p>example weekday{{ staff.work_weekday }}</p>
+                                <p>{{ staff.work_weekday }}</p>
                             </div>
                         </div>
                     </div>
