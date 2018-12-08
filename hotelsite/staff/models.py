@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from login.models import Guest
 
 class Room(models.Model): 
  
@@ -14,15 +15,14 @@ class Room(models.Model):
         ('CLEAN', 'Clean'),
         ('UNCLEAN', 'Unclean')
     )
-    room_num = models.DecimalField(decimal_places=0, max_digits=4, primary_key='True')
+    room_num = models.DecimalField(decimal_places=0, max_digits=4, primary_key='True') 
     room_type = models.CharField(max_length=10, choices=TYPE_IN_CHOICES, default='SINGLE') #Suite 
     status_clean = models.CharField(max_length=10, choices=STATUS_CLEAN_IN_CHOICES, default='CLEAN')  # 0 : 사용중, 1 : 사용가능, 3 : 청소 필요, 4 : 예약
-    room_floor = models.DecimalField(decimal_places=0, max_digits=1, default='1')
     
     
     def __str__(self):
         return str(self.room_num)+'호'
-        
+
 class Staff(models.Model):
 
     SEX_IN_CHOICES=(
@@ -53,7 +53,7 @@ class Staff(models.Model):
 
     def __str__(self):
         return self.user.username
-    
+
 class Department(models.Model):
   
     DEPT_IN_CHOICES=(
@@ -66,7 +66,7 @@ class Department(models.Model):
         ('FINANCE', 'finance'),
     )
     
-    name = models.CharField(max_length = 30, choices=DEPT_IN_CHOICES) 
+    name = models.CharField(max_length = 30, choices=DEPT_IN_CHOICES, unique=True) 
     role = models.TextField() 
     tel_num = models.CharField(max_length = 20) 
 
@@ -86,7 +86,8 @@ class Request_post(models.Model):
     )
 
     #요청번호는 자체 제공하는 pk이용 
-    author =  models.ForeignKey('auth.User', on_delete=models.CASCADE) 
+    author =  models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    guest = models.ForeignKey('login.Guest', on_delete=models.CASCADE)
     title = models.TextField() 
     text = models.TextField() 
     created_date = models.DateTimeField(default=timezone.now) 
