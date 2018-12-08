@@ -17,7 +17,7 @@ class Room(models.Model):
         return str(self.room_num)+'호'
 
 class Extracost(models.Model):
-    TYPE_IN_CHOICES=(
+    PAYMENT_IN_CHOICES=(
         ('CREDIT CARD', 'credit card'),
         ('DEBIT CARD', 'debit card'),
         ('CHEQUE', 'cheque'),
@@ -25,7 +25,7 @@ class Extracost(models.Model):
     )
     reserve_num = models.ForeignKey('Reservation', on_delete = models.CASCADE)
     total_cost = models.DecimalField(decimal_places=0, max_digits=10000000, default = 0)
-    payment_type = models.CharField(max_length=20, choices=TYPE_IN_CHOICES, default='')
+    payment_type = models.CharField(max_length=20, choices=PAYMENT_IN_CHOICES, default='')
 
 class Type(models.Model):
     TYPE_IN_CHOICES=(
@@ -66,7 +66,13 @@ class Guest(models.Model):
     guest_class = models.ForeignKey('Membership', on_delete = models.CASCADE)
 
 class Membership(models.Model):
-    guest_class = models.CharField(max_length=10, primary_key='True')
+    CLASS_IN_CHOICES=(
+        ('SILVER', 'silver'),
+        ('GOLD', 'gold'),
+        ('VIP', 'vip'),
+        ('VVIP', 'vvip'),
+        )
+    guest_class = models.CharField(max_length=10, choices=CLASS_IN_CHOICES, primary_key='True')
     discount = models.CharField(max_length=10, default='0%')
     cumulative_cost = models.DecimalField(decimal_places=0, max_digits=100000000, default='0')
     reserve_count = models.DecimalField(decimal_places=0, max_digits=100, default='0')
