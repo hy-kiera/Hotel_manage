@@ -22,4 +22,5 @@ class ProfileAdmin(UserAdmin):
 admin.site.register(User, ProfileAdmin)
 admin.site.register(Room)
 admin.site.register(Request_post) 
-admin.site.register(Department)
+admin.site.register(Department)  
+admin.site.register(Staff)
