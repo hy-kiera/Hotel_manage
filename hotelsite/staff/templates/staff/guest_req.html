@@ -1,8 +1,11 @@
 {% extends 'staff/staff_base.html' %} 
 {% load staticfiles %} 
 
-{% block content %} 
-<a href = "{% url 'staff:post_new' %}" class="btn btn-secondary">요청접수</a>
+{% block content %}
+<br>
+<div align="right">
+    <a href = "{% url 'staff:post_new' %}" class="btn btn-secondary">요청접수</a>
+</div>
 <div class="row">
     <div class="col-3">고객</div>
     <div class="col-6">요청사항</div>
