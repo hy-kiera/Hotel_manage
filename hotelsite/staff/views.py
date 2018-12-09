@@ -74,8 +74,10 @@ def post_detail(request, pk):
 
 @staff_member_required
 def myinfo(request):
-    staff = Staff.objects.filter(pk=request.user)
+    staff = Staff.objects.filter(user__username=request.user)
+    # req = Request_post.objects.filter(dept__name='finance')
     print(staff.query)
+    # print("req: ", req.query)
     return render(request, 'staff/myinfo.html', {'staff':staff})
 
 @staff_member_required

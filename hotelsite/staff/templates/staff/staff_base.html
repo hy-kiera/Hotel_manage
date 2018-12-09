@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="{% static 'Wallpaper_2560x1440.ico' %}">
 
-    <title>Hotel Staff</title>
+    <title>Hotel</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
@@ -41,22 +41,12 @@
                 <a class="p-2 text-muted" href="#">직원</a>
                 <a class="p-2 text-muted" href="#">예약현황</a>
                 <a class="p-2 text-muted" href="{% url 'staff:guest_req' %}">고객 요청</a> 
-                <a class="p-2 text-muted" href="#">직원 게시판</a>
                 </nav>
             </div>
             
             {% block content %}
             {% endblock %}
 
-
-<!--
-            <footer class="blog-footer">
-            <p>Team.Normal 1 (A1)</p>
-            <p>
-                <a href="#">Back to top</a>
-            </p>
-            </footer>
--->
             <!-- Bootstrap core JavaScript
             ================================================== -->
             <!-- Placed at the end of the document so the pages load faster -->
