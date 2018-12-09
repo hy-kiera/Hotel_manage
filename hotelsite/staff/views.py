@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from .models import Room, Staff, Request_post, Department
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from .forms import PostForm
@@ -14,7 +15,7 @@ def staff_home(request):
     rooms = Room.objects.order_by('room_num')
     return render(request, 'staff/staff_home.html', {'rooms':rooms})
 
-@login_required(login_url='login:sign_in')
+@staff_member_required
 def room(request):
     """ request.metho == POST """
     if request.method == 'POST':
@@ -57,25 +58,40 @@ def post_detail(request, pk):
     if request.method == "POST":
         if request.POST['handle']=='0':
             post.handle_or_not =3
+            post.save()
+            return redirect('staff:guest_req')
       
-        else:
+        elif request.POST['handle']=='1':
             if request.POST['dept'] != '':
-                dept = Department.objects.get(id=request.POST['dept'])
-                post.dept = dept
-                post.handle_or_not = 2
+                dept=Department.objects.get(id=request.POST['dept'])
+                post.dept=dept
+                post.save()
+                return redirect('staff:post_detail', pk=pk)
             else:
                 post.dept = None
                 post.handle_or_not = 1
-        post.save()
-        return redirect('staff:guest_req')
+                post.save()
+                return redirect('staff:guest_req')
+        
+        else:
+            user=User.objects.get(username=request.POST['staff'])
+            post_staff=Staff.objects.get(pk=user)
+            post.staff=post_staff
+            post.handle_or_not = 2
+            post.save()
+            return redirect('staff:guest_req')
     else:
         form = PostForm(instance=post)
-        return render(request, 'staff/req_detail.html', {'post':post, 'form':form})
+        if post.dept is not None:
+            staffs = Staff.objects.filter(dept=post.dept).order_by('status')
+            return render(request, 'staff/req_detail.html', {'post':post, 'form':form, 'staffs':staffs})
+        else:
+            return render(request, 'staff/req_detail.html', {'post':post, 'form':form})
+
 
 @staff_member_required
 def myinfo(request):
-    staff = Staff.objects.filter(pk=request.user)
-    print(staff.query)
+    staff = Staff.objects.get(pk=request.user)
     return render(request, 'staff/myinfo.html', {'staff':staff})
 
 @staff_member_required

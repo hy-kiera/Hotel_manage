@@ -18,6 +18,7 @@ class Room(models.Model):
     room_num = models.DecimalField(decimal_places=0, max_digits=4, primary_key='True') 
     room_type = models.CharField(max_length=10, choices=TYPE_IN_CHOICES, default='SINGLE') #Suite 
     status_clean = models.CharField(max_length=10, choices=STATUS_CLEAN_IN_CHOICES, default='CLEAN')  # 0 : 사용중, 1 : 사용가능, 3 : 청소 필요, 4 : 예약
+    room_floor = models.DecimalField(decimal_places=0, max_digits=1, default='1')
     
     
     def __str__(self):
@@ -94,6 +95,7 @@ class Request_post(models.Model):
     dept = models.ForeignKey('Department',on_delete=models.CASCADE, blank = True, null=True)
     room_num = models.ForeignKey('Room', on_delete=models.CASCADE, blank = True, null = True) 
     handle_or_not = models.DecimalField(decimal_places=0, max_digits=4, choices=HANDLE_IN_CHOICES, default = UNASSIGNED)
+    staff = models.ForeignKey('staff',on_delete=models.CASCADE, blank = True, null=True)
 
     def __str__(self): 
         return self.title 
