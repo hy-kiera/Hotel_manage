@@ -1,0 +1,22 @@
+{% extends 'guest/guest_base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="post">
+    <div class="row">
+        <div class="col-3">{{ post.created_date }}</div>
+        <div class="col-3">{{ post.author }}</div><!--고객정보페이지로 이동-->
+        <div class="col-3">
+            {% if post.room_num == None %}
+            비투숙고객
+            {% else %}
+            {{ post.room_num }}
+            {% endif %}
+        </div><!--예약정보를 통해 고객이 묵는 방 번호 추출, 묵지 않는 고객의 경우(예약고객 혹은 문의 고객) 비투숙고객으로 표시-->
+        <div class="col-3">
+            <a href="{% url 'guest:post_edit' pk=post.pk %}">수정</a>
+        </div>
+    </div>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.text|linebreaksbr }}</p>
+</div>
+{% endblock %}

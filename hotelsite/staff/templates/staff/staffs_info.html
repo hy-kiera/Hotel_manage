@@ -1,0 +1,206 @@
+<meta charset="UTF-8" />
+{% extends 'staff/staff_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<style type="text/css">
+    .col-xl-3 {
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    .col-xl-9 {
+        -ms-flex: 0 0 75%;
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+</style>
+
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    window.onload =() => {
+        // EventListener로 select onchange 이벤트 받기
+        const list = document.getElementById('DeptSelect')
+        list.addEventListener('click', (e) => {
+            const selected = list.selectedOptions.value
+            const csrfToken = getCookie('csrftoken')
+            console.log(csrfToken)
+            console.log(selected)
+            // staff:room으로 select값 post로 넘기기
+            axios.post("{% url 'staff:staffs_info' %}", {
+                select: selected
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                }
+            })
+            .then((data) => {
+                console.log(data)
+                // id = room인 테이블에 값 넣어주기
+                const table = document.getElementById('staffs')
+                table.getElementsByTagName('tbody')[0].innerHTML = ''
+                for(const item of data.data.reqs) {
+                    const tr = document.createElement('tr')
+                    tr.innerHTML = `<td>${item.author}</td><td>${item.title}</td><td>${item.dept}</td><td>${item.work_weekday}</td>`  
+                    table.getElementsByTagName('tbody')[0].appendChild(tr)  
+                }
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        })    
+    }
+</script>
+
+<article>
+    </br>
+    <div class="row">
+        <div class="col-12 col-xl-3">
+            <nav role="navigation" class="navbar-expand-xl">
+                <div class="collapse navbar-collapse lua-navbar-toggle">
+                    <div>
+                        <ul id="dept_name" class="nav nav-pills flex-column lua-toc-list">
+                            {% for dept_name in depts %}
+                            <li class="1">
+                                <a id="DeptSelect" value="{{ dept_name }}" data-parent="dept_name" class="nav-link" href="#" aria-expanded="true" style="color:black">
+                                    {{ dept_name }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="1" class="col-12 col-xl-9">
+            <table id="staffs" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">이름</th>
+                        <th scope="col">상태</th>
+                        <th scope="col">전화번호</th>
+                        <th scope="col">근무요일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in reqs %}
+                        <tr>
+                            <td>{{req.author}}</td>
+                            <td>{{req.title}}</td>
+                            <td>{{req.dept}}</td>
+                            <td>{{req.room_num}}</td>
+                        </tr>
+                    {% endfor %}
+                    <!-- {% for staff in staffs %}
+                        <tr>
+                            <td>{{ staff.name_last }}{{ staff.name_first }}</td>
+                            <td>{{ staff.status }}</td>
+                            <td>{{ staff.phone_num }}</td>
+                            <td>{{ staff.work_weekday }}</td>
+                        </tr>
+                    {% endfor %} -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</article>
+<!-- <section class="container py-4">
+    <div class="row">
+        <div class="col-md-12">
+            <ul id="tabsJustified" class="nav nav-tabs">
+                <li class="nav-item"><a href="" data-target="#profile1" data-toggle="tab" class="nav-link small text-uppercase active">Profile</a></li>
+                <li class="nav-item"><a href="" data-target="#home1" data-toggle="tab" class="nav-link small text-uppercase">Home</a></li>
+                <li class="nav-item"><a href="" data-target="#messages1" data-toggle="tab" class="nav-link small text-uppercase">Messages</a></li>
+            </ul>
+            <br>
+            <div id="tabsJustifiedContent" class="tab-content">
+                <div id="profile1" class="tab-pane fade active show">
+                    <table id="room" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">이름</th>
+                                <th scope="col">부서</th>
+                                <th scope="col">상태</th>
+                                <th scope="col">전화번호</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for room in rooms %}
+                                <tr>
+                                    <td>{{ room.room_num }}</td>
+                                    <td>{{ room.room_type }}</td>
+                                    <td>{{ room.status_clean }}</td>
+                                    <td>null</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div id="home1" class="tab-pane fade">
+                    <table id="room" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">이름</th>
+                                    <th scope="col">부서</th>
+                                    <th scope="col">상태</th>
+                                    <th scope="col">전화번호</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for room in rooms %}
+                                    <tr>
+                                        <td>{{ room.room_num }}</td>
+                                        <td>{{ room.room_type }}</td>
+                                        <td>{{ room.status_clean }}</td>
+                                        <td>null</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+                <div id="messages1" class="tab-pane fade">
+                    <table id="room" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">이름</th>
+                                <th scope="col">부서</th>
+                                <th scope="col">상태</th>
+                                <th scope="col">전화번호</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for room in rooms %}
+                                <tr>
+                                    <td>{{ room.room_num }}</td>
+                                    <td>{{ room.room_type }}</td>
+                                    <td>{{ room.status_clean }}</td>
+                                    <td>null</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+{% endblock %}
