@@ -12,15 +12,17 @@
     <form method="POST">
         </br>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
                 <!-- Profile Image -->
                 </br>
                 <div class="profile-img">
                     <!-- {{ stff.photo }} -->
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                    {% if staff.photo %}
+                    <img src="{{ staff.photo.url }}" alt=""width="300" height="200"/>
+                    {% endif %}
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-8">
                 <div class="profile-head">
                     </br>
                     <h3>
@@ -41,39 +43,43 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-md-4"></div>
-            <div class="col-md-8">
+        <div class="col-4"></div>
+            <div class="col-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>User ID</label>
                             </div>
-                            <div class="col-md-6">
-                                <p>{{ user.get_username }}</p>
+
+                            <div class="col-6">
+                                <p>{{ staff.user.username }}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>Status</label>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-6">
                                 <p>{{ staff.status }}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>Phone Number</label>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-6">
                                 <p>{{ staff.phone_num }}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>Work Start Time</label>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-6">
                                 <p>{{ staff.work_start_time }}</p>
                             </div>
                         </div>
@@ -81,15 +87,17 @@
                             <div class="col-md-6">
                                 <label>Work End Time</label>
                             </div>
-                            <div class="col-md-6">
-                                <p>{{ staff.work_end_time }}</p>
+
+                            <div class="col-6">
+                                <p>{{ staff.wokr_end_time }}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>Work Weekday</label>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-6">
                                 <p>{{ staff.work_weekday }}</p>
                             </div>
                         </div>
