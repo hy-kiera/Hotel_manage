@@ -14,6 +14,7 @@ def user_path(instance, filename): #파라미터 instance는 Photo 모델을 의
     return '%s/%s.%s' % (instance.owner.username, pid, extension) # 예 : wayhome/abcdefgs.png
 
 class Room(models.Model): 
+
     STATUS_CLEAN_IN_CHOICES=(
         ('CLEAN', 'Clean'),
         ('UNCLEAN', 'Unclean')
@@ -138,6 +139,7 @@ class Reservation(models.Model):
 
     def __str__(self):
         return str(self.reserve_num)
+
 
 class Membership(models.Model):
     CLASS_IN_CHOICES=(
