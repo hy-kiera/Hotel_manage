@@ -63,7 +63,7 @@ def introduce(request):
 def myreserv(request):
     guest = Guest.objects.get(guest_id=request.user.username)
     reserve = Reservation.objects.get(guest_id=guest)
-    return render(request, 'guest/myreserve.html', {'reserve': reserve}) 
+    return render(request, 'guest/myreserv.html', {'reserve': reserve}) 
 
 @login_required(login_url='login:sign_in')
 def post_edit(request, pk):
