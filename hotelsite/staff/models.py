@@ -68,7 +68,7 @@ class Department(models.Model):
         ('FRONT_OFFICE', 'front_office'),
         ('HOUSE_KEEPING', 'house_keeping'),
         ('FITNESS', 'fitness'),
-        ('FOOD_BERVERAGE', 'food_berverage'),
+        ('FOOD_BEVERAGE', 'food_beverage'),
         ('FINANCE', 'finance'),
     )
     name = models.CharField(max_length = 30, choices=DEPT_IN_CHOICES, unique=True) 
