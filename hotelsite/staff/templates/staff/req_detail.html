@@ -45,10 +45,10 @@
                 {% endfor %}
             </optgroup>
         </select>
-    {% endif %}
     <input name="handle" type="hidden" value="2"/>
     <button type="submit" >직원배정</button></div>
     </form>
+    {% endif %}
     <br>
     <form method="POST" name="handle" >{% csrf_token %}
         <input name="handle" type="hidden" value="0"/>
