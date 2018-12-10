@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-from .models import Room, Request_post, Department, Staff
+from .models import Room, Request_post, Department, Staff, Reservation, Type
 
 admin.site.unregister(User)
 
@@ -24,3 +24,5 @@ admin.site.register(Room)
 admin.site.register(Request_post) 
 admin.site.register(Department)  
 admin.site.register(Staff)
+admin.site.register(Reservation)
+admin.site.register(Type)
