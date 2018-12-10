@@ -23,7 +23,9 @@ def room(request):
         # print('POST select:', body['select'])
         floor = body['select']
         rooms = Room.objects.filter(room_floor=floor).order_by('room_num').values()
+        # print(rooms.query)
         rooms = list(rooms)
+        # print(rooms)
         return JsonResponse({
             'rooms': rooms
         })
@@ -110,3 +112,35 @@ def post_edit(request, pk):
         else:    
             form = PostForm(instance=post)
             return render(request, 'guest/req_new.html', {'form': form})
+
+@staff_member_required
+def staffs_info(request):
+    """ request.metho == POST """
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        print('POST select:', body['select'])
+        dept = body['select']
+        if dept == '1':
+            dept = 'BACK_OFFICE'
+        elif dept == '2':
+            dept = 'SALES_MARKETING'
+        elif dept == '3':
+            dept = 'FRONT_OFFICE'
+        elif dept == '4':
+            dept = 'HOUSE_KEEPING'
+        elif dept == '5':
+            dept = 'FITNESS'
+        elif dept == '6':
+            dept = 'FOOD_BEVERAGE'
+        else:
+            dept = 'FINANCE'
+        staffs = Staff.objects.filter(dept__name=dept).values()
+        # print(staffs.query)
+        staffs = list(staffs)
+        # print(staffs)
+        return JsonResponse({
+            'staffs': staffs
+        })
+    else:
+        staffs = Staff.objects.filter(dept__name='BACK_OFFICE')
+        return render(request, 'staff/staffs_info.html', {'staffs':staffs})
