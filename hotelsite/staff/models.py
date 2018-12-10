@@ -5,18 +5,12 @@ from login.models import Guest
 
 class Room(models.Model): 
  
-    TYPE_IN_CHOICES=(
-        ('SINGLE', 'Single'),
-        ('DOUBLE', 'Double'),
-        ('SUITE', 'Suite')
-    )
-    
     STATUS_CLEAN_IN_CHOICES=(
         ('CLEAN', 'Clean'),
         ('UNCLEAN', 'Unclean')
     )
     room_num = models.DecimalField(decimal_places=0, max_digits=4, primary_key='True') 
-    room_type = models.CharField(max_length=10, choices=TYPE_IN_CHOICES, default='SINGLE') #Suite 
+    room_type = models.ForeignKey('Type', on_delete=models.CASCADE) #Suite 
     status_clean = models.CharField(max_length=10, choices=STATUS_CLEAN_IN_CHOICES, default='CLEAN')  # 0 : 사용중, 1 : 사용가능, 3 : 청소 필요, 4 : 예약
     room_floor = models.DecimalField(decimal_places=0, max_digits=1, default='1')
     
@@ -99,3 +93,61 @@ class Request_post(models.Model):
 
     def __str__(self): 
         return self.title 
+
+class Extracost(models.Model):
+    PAYMENT_IN_CHOICES=(
+        ('CREDIT CARD', 'credit card'),
+        ('DEBIT CARD', 'debit card'),
+        ('CHEQUE', 'cheque'),
+        ('CASH', 'cash')
+    )
+    reserve_num = models.ForeignKey('Reservation', on_delete = models.CASCADE)
+    total_cost = models.DecimalField(decimal_places=0, max_digits=10000000, default = 0)
+    payment_type = models.CharField(max_length=20, choices=PAYMENT_IN_CHOICES, default='')
+
+class Type(models.Model):
+    TYPE_IN_CHOICES=(
+        ('STANDARD SINGLE', 'Standard Single'),
+        ('STANDARD DOUBLE', 'Standard Double'),
+        ('SSTANDARD SUITE', 'Standard Suite')
+    )
+    room_type = models.CharField(max_length=20, choices=TYPE_IN_CHOICES, default='SINGLE', primary_key='True')
+    capacity = models.DecimalField(decimal_places=0, max_digits=1, default = 0)
+#    nights = models.DecimalField(decimal_places=0, max_digits=10, default=0)
+    cost = models.DecimalField(decimal_places=0, max_digits=10000000, default=0)
+
+class Reservation(models.Model):
+    # created = models.DateTimeField(auto_now_add=True)
+    reserve_num = models.DecimalField(decimal_places=0, max_digits=5, default=0, primary_key='True')
+    room_num = models.ForeignKey('Room', on_delete=models.CASCADE, blank = True, null = True)
+    guest_id = models.ForeignKey('login.Guest', on_delete = models.CASCADE)
+    cost = models.CharField(max_length=10000000, default=0)
+    date_start = models.DateTimeField(default=timezone.now)
+    date_end = models.DateTimeField(default=timezone.now)
+    book_time = models.DateTimeField(default=timezone.now)
+    companion = models.DecimalField(decimal_places=0, max_digits=1, default=0)
+    room_floor = models.DecimalField(decimal_places=0, max_digits=1, default='1')
+
+    def __str__(self):
+        return str(self.reserve_num)
+
+
+class Membership(models.Model):
+    CLASS_IN_CHOICES=(
+        ('SILVER', 'silver'),
+        ('GOLD', 'gold'),
+        ('VIP', 'vip'),
+        ('VVIP', 'vvip'),
+    )
+    guest_class = models.CharField(max_length=10, choices=CLASS_IN_CHOICES, primary_key='True')
+    discount = models.CharField(max_length=10, default='0%')
+    cumulative_cost = models.DecimalField(decimal_places=0, max_digits=100000000, default='0')
+    reserve_count = models.DecimalField(decimal_places=0, max_digits=100, default='0')
+
+class Guestcar(models.Model):
+    guest_id = models.ForeignKey('login.Guest', on_delete = models.CASCADE)
+    car_num = models.DecimalField(decimal_places=0, max_digits=10, default='0', primary_key='True')
+
+class Charge(models.Model):
+    room_num = models.ForeignKey('Room', on_delete=models.CASCADE, blank = True, null = True)
+    staff_id = models.ForeignKey('Staff', on_delete = models.CASCADE)
