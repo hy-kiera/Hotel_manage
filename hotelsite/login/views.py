@@ -37,7 +37,7 @@ def sign_in(request):
 @login_required(login_url='login:sign_in')
 def log_out(request):
     logout(request)
-    return redirect('login:sign_in')
+    return redirect('guest:guest_home')
 
 
 def sign_up(request):
