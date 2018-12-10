@@ -144,3 +144,13 @@ def staffs_info(request):
     else:
         staffs = Staff.objects.filter(dept__name='BACK_OFFICE')
         return render(request, 'staff/staffs_info.html', {'staffs':staffs})
+
+    
+@login_required(login_url='login:sign_in')
+def reserve_status(request):
+    if request.method == "POST":
+        reserve = Reservation.objects.get(reserve_num=request.POST['reservation'])
+        return render(request, 'staff/reserve_status.html', {'reserve' : reserve})
+    else:
+        return render(request, 'staff/reserve_status.html')
+ 
