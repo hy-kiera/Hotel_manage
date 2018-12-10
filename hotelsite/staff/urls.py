@@ -11,4 +11,5 @@ urlpatterns = [
     path('guest_req/<pk>', views.post_detail, name='post_detail'),
     path('myinfo', views.myinfo, name='myinfo'),
     path('room', views.room, name='room'),
+    path('reserve_status', views.reserve_status, name='reserve_status'),
 ]
