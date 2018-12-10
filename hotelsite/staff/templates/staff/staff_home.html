@@ -4,6 +4,7 @@
 
 {% block content %}
 
+
 <div style="border:1px #dedede; width:10; height:10;  overflow:auto;" >
     <table cellspacing="0" class="case03" style="width:85%; margin: 10px 40px;" id="table" name="table">
         <colgroup>
@@ -15,6 +16,17 @@
     </table>         
 </div>
 
-
+<!-- 우수직원 -->
+<div align="center" class="super_staff">
+    <div class="card" style="width: 23rem;" align="center">
+        <h2>이 달의 우수직원</h2>
+        <img src="{{ super_staff.photo.url }}" alt="Super Staff" height="500" width="380", align="middle", class="img-thumbnail">
+        <div class="card-body">
+            <h3 align="center" class="card-text">{{ super_staff.name_last }}{{ super_staff.name_first }}</h3>
+            <h4 align="center" class="card-text">{{ super_staff.dept }}</h4>
+            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+        </div>
+    </div>
+</div>
     
 {% endblock %}
