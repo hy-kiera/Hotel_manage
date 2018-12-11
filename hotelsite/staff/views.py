@@ -11,9 +11,9 @@ from django.http import JsonResponse
 
 @staff_member_required
 def staff_home(request):
-    print(request.GET.get('floor'))
-    rooms = Room.objects.order_by('room_num')
-    return render(request, 'staff/staff_home.html', {'rooms':rooms})
+    super_staff = Staff.objects.get(user__username='doh')
+    print(super_staff)
+    return render(request, 'staff/staff_home.html', {'super_staff':super_staff})
 
 @staff_member_required
 def room(request):
