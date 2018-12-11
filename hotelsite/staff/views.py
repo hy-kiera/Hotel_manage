@@ -20,12 +20,12 @@ def room(request):
     """ request.metho == POST """
     if request.method == 'POST':
         body = json.loads(request.body)
-        # print('POST select:', body['select'])
+        print('POST select:', body['select'])
         floor = body['select']
         rooms = Room.objects.filter(room_floor=floor).order_by('room_num').values()
-        # print(rooms.query)
+        print(rooms.query)
         rooms = list(rooms)
-        # print(rooms)
+        print(rooms)
         return JsonResponse({
             'rooms': rooms
         })
