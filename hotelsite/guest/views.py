@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
-from staff.models import Request_post, Department, Room
+from staff.models import Request_post, Department, Room, Reservation
 from login.models import Guest
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
@@ -61,7 +61,9 @@ def introduce(request):
 
 @login_required(login_url='login:sign_in')
 def myreserv(request):
-    return render(request, 'guest/myreserv.html')
+    guest = Guest.objects.get(guest_id=request.user.username)
+    reserve = Reservation.objects.get(guest_id=guest)
+    return render(request, 'guest/myreserv.html', {'reserve': reserve}) 
 
 @login_required(login_url='login:sign_in')
 def post_edit(request, pk):

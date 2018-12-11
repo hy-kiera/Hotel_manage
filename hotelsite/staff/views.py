@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
-from .models import Room, Staff, Request_post, Department
+from .models import Room, Staff, Request_post, Department, Reservation
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -144,3 +144,13 @@ def staffs_info(request):
     else:
         staffs = Staff.objects.filter(dept__name='BACK_OFFICE')
         return render(request, 'staff/staffs_info.html', {'staffs':staffs})
+
+    
+@login_required(login_url='login:sign_in')
+def reserve_status(request):
+    if request.method == "POST":
+        reserve = Reservation.objects.get(reserve_num=request.POST['reservation'])
+        return render(request, 'staff/reserve_status.html', {'reserve' : reserve})
+    else:
+        return render(request, 'staff/reserve_status.html')
+ 
