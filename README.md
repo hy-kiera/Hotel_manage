@@ -5,9 +5,11 @@
 
 ## Usages
 - Python3
-- MariaDB v10.2.19
-  - PyMySQL v0.9.2
+  - pillow
 - Django v2.1.3
+- Sqlite3
+- HTML5, CSS3, Javascript, bootstrap4
+- JQuery, AXIOS
 
 ## Members
 |name|work|
