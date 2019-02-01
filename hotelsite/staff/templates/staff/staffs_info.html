@@ -1,0 +1,115 @@
+<meta charset="UTF-8" />
+{% extends 'staff/staff_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="{% static 'jquery.min.js' %}"><\/script>')</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    window.onload =() => {
+        // EventListener로 select onchange 이벤트 받기
+        const list = document.getElementById('DeptSelect')
+        list.addEventListener('change', (e) => {
+            const selected = list.selectedOptions[0].value
+            const csrfToken = getCookie('csrftoken')
+            console.log(csrfToken)
+            console.log(selected)
+            // staff:room으로 select값 post로 넘기기
+            axios.post("{% url 'staff:staffs_info' %}", {
+                select: selected
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                }
+            })
+            .then((data) => {
+                console.log(data)
+                // id = room인 테이블에 값 넣어주기
+                const table = document.getElementById('staffs')
+                table.getElementsByTagName('tbody')[0].innerHTML = ''
+                for(const item of data.data.staffs) {
+                    const tr = document.createElement('tr')
+                    tr.innerHTML = `<td>${item.name_last}${item.name_first}</td><td>${item.status}</td><td>${item.phone_num}</td>`  
+                    table.getElementsByTagName('tbody')[0].appendChild(tr)  
+                }
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        })    
+    }
+</script>
+
+
+<div style="border:1px #dedede; width:10; height:10;  overflow:auto;" >
+    <table cellspacing="0" class="case03" style="width:85%; margin: 10px 40px;" id="table" name="table">
+        <colgroup>
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+        </colgroup>
+    </table>         
+</div>
+
+
+<div class="row">
+    <div class="col-2 mb-3">
+        <label for="checkin">부서선택</label><br>
+        <div class="field-icon-wrap">
+            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                <select name="staffs" class="staffs" id="DeptSelect">
+                    <option id="1" value="1" selected="true">BACK OFFICE</option>
+                    <option id="2" value="2">SALES MARKETING</option>
+                    <option id="3" value="3">FRONT OFFICE</option>
+                    <option id="4" value="4">HOUSE KEEPING</option>
+                    <option id="5" value="5">FITNESS</option>
+                    <option id="6" value="6">FOOD BEVERAGE</option>
+                    <option id="7" value="7">FINANCE</option>
+                </select>
+            <div class="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<table id="staffs" class="table">
+        <thead>
+            <tr>
+                <th scope="col">이름</th>
+                <th scope="col">상태</th>
+                <th scope="col">전화번호</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for staff in staffs %}
+                <tr>
+                    <td>{{ staff.name_last }}{{ staff.name_first }}</td>
+                    <td>{{ staff.status }}</td>
+                    <td>{{ staff.phone_num }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+</table>
+
+{% endblock %}

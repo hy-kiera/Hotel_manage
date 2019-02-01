@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="{% static 'Wallpaper_2560x1440.ico' %}">
 
-    <title>Hotel Guest</title>
+    <title>Hotel</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
@@ -30,7 +30,7 @@
             <a class="text-muted" href="#"></a>
           </div>
           <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark" href="{% url 'guest_home' %}">Hotel</a>
+            <a class="blog-header-logo text-dark" href="{% url 'guest:guest_home' %}">Hotel</a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
           
@@ -41,26 +41,17 @@
 
       <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between">
-          <a class="p-2 text-muted" href="{% url 'guest_myinfo' %}">내 정보</a>
-          <a class="p-2 text-muted" href="#">예약 확인</a>
-          <a class="p-2 text-muted" href="#">직원 검색</a>
-          <a class="p-2 text-muted" href="#">방 정보</a>
-          <a class="p-2 text-muted" href="#">호텔 소개</a>
-          <a class="p-2 text-muted" href="{% url 'req' %}">요청 및 문의</a>
+          <a class="p-2 text-muted" href="{% url 'guest:guest_myinfo' %}">내 정보</a>
+          <a class="p-2 text-muted" href="{% url 'guest:myreserv' %}">예약 확인</a>
+          <a class="p-2 text-muted" href="{% url 'guest:guest_room' %}">방 정보</a>
+          <a class="p-2 text-muted" href="{% url 'guest:introduce' %}">호텔 소개</a>
+          <a class="p-2 text-muted" href="{% url 'guest:req' %}">요청 및 문의</a>
         </nav>
       </div>
       
       {% block content %}
       {% endblock %}
 
-
-
-    <footer class="blog-footer">
-      <p>Team.Normal 1 (A1)</p>
-      <p>
-        <a href="#">Back to top</a>
-      </p>
-    </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

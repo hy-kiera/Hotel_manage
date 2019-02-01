@@ -3,16 +3,18 @@
 {% block content %}
 <div class="post">
     <div class="row">
-        <div class="col-6">{{ post.created_date }}</div>
-        <div class="col-3">{{ post.author }}</div><!--고객정보페이지로 이동-->
+        <div class="col-3">{{ post.created_date }}</div>
+        <div class="col-3">{{ post.guest }}</div><!--고객정보페이지로 이동-->
         <div class="col-3">
             {% if post.room_num == None %}
             비투숙고객
             {% else %}
             {{ post.room_num }}
-            {% endif %}
-            
+            {% endif %}  
         </div><!--예약정보를 통해 고객이 묵는 방 번호 추출, 묵지 않는 고객의 경우(예약고객 혹은 문의 고객) 비투숙고객으로 표시-->
+        <div class="col-3">
+            <a href="{% url 'guest:post_edit' pk=post.pk %}">수정</a>
+        </div>   
     </div>
     <h1>{{ post.title }}</h1>
     <p>{{ post.text|linebreaksbr }}</p>
@@ -22,12 +24,35 @@
             <div class ="col-8">부서 : {{ form.dept }}<button type="submit" >부서배정</button></div>
         </div>
     </form>
-    <!--부서를 배정하면 부서에서 바로 업무 가능한 직원 목록이 뜨게 수정 필요-->   
+    <br>
+    <form method="POST">{% csrf_token %}
+    {% if staffs is not None %}
+        <select name="staff" >
+            <option>{{post.staff}}</option>
+            <optgroup label="working">
+                {% for staff in staffs %}
+                    {% if staff.status == 'WORKING' %}
+                        <option>{{staff.user.username}}</option>
+                    {% endif %}
+                {% endfor %}
+            </optgroup>
+            
+            <optgroup label="resting">
+                {% for staff in staffs %}
+                    {% if staff.status == 'RESTING' %}
+                        <option>{{staff.user.username}}</option>
+                    {% endif %}
+                {% endfor %}
+            </optgroup>
+        </select>
+    <input name="handle" type="hidden" value="2"/>
+    <button type="submit" >직원배정</button></div>
+    </form>
+    {% endif %}
+    <br>
     <form method="POST" name="handle" >{% csrf_token %}
         <input name="handle" type="hidden" value="0"/>
         <button type="submit" class="btn btn-secondary">처리완료</button>
     </form>
 </div>
-
-
 {% endblock %}

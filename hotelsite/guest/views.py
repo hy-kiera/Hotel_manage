@@ -1,12 +1,17 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
-from staff.models import Request_post, Department, Room
+from staff.models import Request_post, Department, Room, Reservation
+from login.models import Guest
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 
-@login_required(login_url='login:sign_in')
 def guest_home(request):
-    return render(request, 'guest/guest_home.html')
+    if request.user.is_staff==True:
+        return redirect('staff:staff_home')
+    elif request.user.is_active == True :
+        return render(request, 'guest/guest_home.html')
+    else:
+        return render (request, 'guest/guest_home_login.html')
 
 @login_required(login_url='login:sign_in')
 def guest_myinfo(request):
@@ -16,9 +21,11 @@ def guest_myinfo(request):
 def guest_payment(request):
     return render(request, 'guest/payment.html')
   
-@login_required(login_url='login:sign_in')
 def guest_room(request):
-    return render(request, 'guest/guest_room.html')
+    if request.user.is_active == True:
+        return render(request, 'guest/guest_room.html')
+    else:
+        return render(request, 'guest/guest_room_login.html')
 
 @login_required(login_url='login:sign_in')
 def req(request):
@@ -37,10 +44,40 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author=request.user
+            post.guest=Guest.objects.get(guest_id=request.user)
             if post.dept != None:
                 post.handle_or_not= 2
             post.save()
-            return redirect('req')
+            return redirect('guest:req')
     else:
         form = PostForm()
     return render(request, 'guest/req_new.html', {'form':form})
+
+def introduce(request):
+    if request.user.is_active == True:
+        return render(request, 'guest/introduce.html')
+    else:
+        return render(request, 'guest/introduce_login.html')
+
+@login_required(login_url='login:sign_in')
+def myreserv(request):
+    guest = Guest.objects.get(guest_id=request.user.username)
+    reserve = Reservation.objects.get(guest_id=guest)
+    return render(request, 'guest/myreserv.html', {'reserve': reserve}) 
+
+@login_required(login_url='login:sign_in')
+def post_edit(request, pk):
+    post = get_object_or_404(Request_post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('guest:post_detail', pk=post.pk)
+        else:
+            return render(request, 'guest/req_new.html', {'form': form})
+    else:
+        if request.user != post.author:
+            return HttpResponse("권한이 없습니다.")
+        else:    
+            form = PostForm(instance=post)
+            return render(request, 'guest/req_new.html', {'form': form})

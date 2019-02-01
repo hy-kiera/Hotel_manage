@@ -1,0 +1,32 @@
+<meta charset="UTF-8" />
+{% extends 'guest/guest_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="post">
+
+        <table id="reservation" class="table">
+        <thead>
+            <tr>
+                <th scope="col">예약번호</th>
+                <th scope="col">호실</th>
+                <th scope="col">고객ID</th>
+                <th scope="col">숙박시작일</th>
+                <th scope="col">숙박종료일</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>{{ reserve.reserve_num }}</td>
+                    <td>{{ reserve.room_num }}</td>
+                    <td>{{ reserve.guest_id }}</td>
+                    <td>{{ reserve.date_start }}</td>
+                    <td>{{ reserve.date_end }}</td>
+                </tr>
+        </tbody>
+        </table>
+    
+</div>
+
+{% endblock %}

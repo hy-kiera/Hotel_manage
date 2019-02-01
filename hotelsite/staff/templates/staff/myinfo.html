@@ -3,19 +3,109 @@
 
 {% block content %}
     
-    <div class="row">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    
+<div class="container emp-profile">
+    <form method="POST">
+        </br>
         <div class="row">
-            <div class="col">
-                <p>성</p>{{staff.name_last}}</div>
-            <div class="col">
-                <p>이름</p>{{staff.name_first}}</div>
+            <div class="col-4">
+                <!-- Profile Image -->
+                </br>
+                <div class="profile-img">
+                    <!-- {{ stff.photo }} -->
+                    {% if staff.photo %}
+                    <img src="{{ staff.photo.url }}" alt=""width="300" height="200"/>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="profile-head">
+                    </br>
+                    <h3>
+                        {{ staff.name_last }}
+                        {{ staff.name_first }}
+                    </h3>
+                    <h6>
+                        {{ staff.dept }}
+                    </h6>
+                    </br>
+                    </br>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col">{{staff.work_start_time}}</div>
-        <div class="col">{{staff.work_end_time}}</div>
-        <div class="col">{{staff.work_weekday}}</div>
-        <div class="col">{{staff.status}}</div>
-        <div class="col">{{staff.phone_num}}</div>
-        <div class="col">{{staff.dept}}</div>
-    </div>
+        <div class="row">
+        <div class="col-4"></div>
+            <div class="col-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-6">
+                                <label>User ID</label>
+                            </div>
+
+                            <div class="col-6">
+                                <p>{{ staff.user.username }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Status</label>
+                            </div>
+
+                            <div class="col-6">
+                                <p>{{ staff.status }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Phone Number</label>
+                            </div>
+
+                            <div class="col-6">
+                                <p>{{ staff.phone_num }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Work Start Time</label>
+                            </div>
+
+                            <div class="col-6">
+                                <p>{{ staff.work_start_time }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Work End Time</label>
+                            </div>
+
+                            <div class="col-6">
+                                <p>{{ staff.wokr_end_time }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Work Weekday</label>
+                            </div>
+
+                            <div class="col-6">
+                                <p>{{ staff.work_weekday }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
     
 {% endblock %}
